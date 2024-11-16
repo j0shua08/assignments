@@ -1,0 +1,19 @@
+<h1>CafeJS</h1>
+
+<h2>Products</h2>
+<ul>
+    <% products.forEach( (product) => { %>
+        <li><a href="/product/<%= product.id %>"><%= product.name %></a> - PHP <%= product.price %></li>
+    <% }); %>
+
+   
+
+</ul>
+
+<% if (user) { %>
+    <p>Welcome, <%= user.username %>!</p>
+    <!-- In index.ejs. Place this inside the user block so it won't render if there's no user. -->
+<a href="/cart">View my cart</a>
+<% } %>
+
+
