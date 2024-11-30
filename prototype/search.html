@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoZi Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+        .form-control {
+            margin-bottom: 15px;
+        }
+        .form-control label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-control select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .results {
+            margin-top: 20px;
+        }
+        .result-item {
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f8f9fa;
+        }
+        .result-item img {
+            max-width: 100%;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .result-item h3 {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Search for Condos</h1>
+        <div class="form-control">
+            <label for="location">Select Location:</label>
+            <select id="location">
+                <option value="Manila">Manila</option>
+                <option value="Quezon City">Quezon City</option>
+                <option value="Pasig">Pasig</option>
+            </select>
+        </div>
+        <div class="form-control">
+            <label for="price">Select Price Range:</label>
+            <select id="price">
+                <option value="15000">Up to ₱15,000</option>
+                <option value="20000">₱15,001 - ₱20,000</option>
+                <option value="25000">₱20,001 - ₱25,000</option>
+            </select>
+        </div>
+        <button class="btn" onclick="searchCondo()">Search</button>
+
+        <div class="results" id="results"></div>
+    </div>
+
+    <script>
+        const condos = [
+            {
+                name: "Sunrise Apartments",
+                location: "Manila",
+                price: 15000,
+                image: "https://www.bria.com.ph/wp-content/uploads/2022/05/Bria-Condo-Interior-2.jpg"
+            },
+            {
+                name: "Sunrise Apartments",
+                location: "Manila",
+                price: 20000,
+                image: "https://pix10.agoda.net/hotelImages/33806773/0/a5a48c69b56a0c6388541441ca9609d4.jpg?ce=0&s=414x232&ar=16x9"
+            },
+            {
+                name: "Sunrise Apartments",
+                location: "Manila",
+                price: 25000,
+                image: "https://images.summitmedia-digital.com/realliving/resize/large/images/2023/07/05/26SQMCONDO-MAIN.png"
+            },
+            {
+                name: "Moonlight Condos",
+                location: "Quezon City",
+                price: 20000,
+                image: "https://images.summitmedia-digital.com/realliving/resize/images/2017/10/03/KARLA-WIDE.webp"
+            },
+            {
+                name: "Greenleaf Suites",
+                location: "Pasig",
+                price: 25000,
+                image: "https://pix10.agoda.net/hotelImages/agoda-homes/14494666/7a38db7eaaa159accaefc4e8332796b1.jpg?ca=11&ce=1&s=414x232"
+            }
+        ];
+
+        function searchCondo() {
+            const location = document.getElementById("location").value;
+            const price = parseInt(document.getElementById("price").value);
+            const resultsDiv = document.getElementById("results");
+
+            resultsDiv.innerHTML = "";
+
+            const condo = condos.find(
+                c => c.location === location && c.price === price
+            );
+
+            if (condo) {
+                resultsDiv.innerHTML = `
+                    <div class="result-item">
+                        <img src="${condo.image}" alt="${condo.name}">
+                        <h3>${condo.name}</h3>
+                        <p><strong>Location:</strong> ${condo.location}</p>
+                        <p><strong>Price:</strong> ₱${condo.price.toLocaleString()}/month</p>
+                    </div>
+                `;
+            } else {
+                resultsDiv.innerHTML = "<p>No condo found matching your criteria.</p>";
+            }
+        }
+    </script>
+</body>
+</html>

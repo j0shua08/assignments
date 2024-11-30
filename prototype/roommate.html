@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoZi Roommate Finder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+        .form-control {
+            margin-bottom: 15px;
+        }
+        .form-control label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-control select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .results {
+            margin-top: 20px;
+        }
+        .result-item {
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+        .result-item img {
+            max-width: 150px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+        .result-item h3 {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Find a Roommate</h1>
+        <div class="form-control">
+            <label for="gender">Select Gender Preference:</label>
+            <select id="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="nonbinary">Non-binary</option>
+            </select>
+        </div>
+        <button class="btn" onclick="findRoommate()">Find Roommate</button>
+
+        <div class="results" id="results"></div>
+    </div>
+
+    <script>
+        // Mock roommate data with profiles, condos, and rent details
+        const roommates = [
+            {
+                name: "John Doe",
+                gender: "male",
+                image: "https://c8.alamy.com/comp/TC667N/young-man-avatar-cartoon-character-profile-picture-TC667N.jpg",
+                bio: "Loves gaming and cooking. Prefers a quiet roommate.",
+                condo: "Sunrise Apartments",
+                totalRent: 15000,
+                roommates: 2
+            },
+            {
+                name: "Jane Smith",
+                gender: "female",
+                image: "https://c8.alamy.com/comp/TC2GE7/young-woman-avatar-cartoon-character-profile-picture-TC2GE7.jpg",
+                bio: "Avid reader and fitness enthusiast. Prefers a tidy roommate.",
+                condo: "Moonlight Condos",
+                totalRent: 20000,
+                roommates: 2
+            },
+            {
+                name: "Alex Taylor",
+                gender: "nonbinary",
+                image: "https://img.freepik.com/free-vector/young-prince-vector-illustration_1308-174367.jpg",
+                bio: "Artist and music lover. Open to roommates of all backgrounds.",
+                condo: "Greenleaf Suites",
+                totalRent: 25000,
+                roommates: 3
+            }
+        ];
+
+        function findRoommate() {
+            const gender = document.getElementById("gender").value;
+            const resultsDiv = document.getElementById("results");
+
+            resultsDiv.innerHTML = "";
+
+            const roommate = roommates.find(r => r.gender === gender);
+
+            if (roommate) {
+                const rentPerPerson = Math.round(roommate.totalRent / roommate.roommates);
+                resultsDiv.innerHTML = `
+                    <div class="result-item">
+                        <img src="${roommate.image}" alt="${roommate.name}">
+                        <h3>${roommate.name}</h3>
+                        <p><strong>Bio:</strong> ${roommate.bio}</p>
+                        <p><strong>Gender:</strong> ${roommate.gender.charAt(0).toUpperCase() + roommate.gender.slice(1)}</p>
+                        <p><strong>Condo:</strong> ${roommate.condo}</p>
+                        <p><strong>Approx. Rent per Person:</strong> ₱${rentPerPerson.toLocaleString()}/month</p>
+                    </div>
+                `;
+            } else {
+                resultsDiv.innerHTML = "<p>No roommate found matching your preference.</p>";
+            }
+        }
+    </script>
+</body>
+</html>
